@@ -37,9 +37,7 @@ class OrangeSpider(CrawlSpider):
             restrict_xpaths=("//div[@class='list-contents']/div[1]/div[3]"),
             allow_domains='anjuke.com'), callback='parse_item', follow=False),
     ）
-----------------------------------------------------------------
-v1.0中的是最新版本，可以实现翻页爬取
-
+    
     def parse_item(self, response):
         item = AnjukeSpiderItem()
         item['house_name'] = response.xpath("//div[@class='lp-tit']/h1/text()").extract()
@@ -53,8 +51,9 @@ v1.0中的是最新版本，可以实现翻页爬取
         yield item
 ```
 --------------------------------------------------------------------
-上面这段代码是对安居客天津住宅新房进信息爬取 对应的爬虫是`anjukeSpider`</br>
 * 还是先从`start_urls`中的链接得到返回的`response`，利用`Rule`提取链接，第一个提取到的是下一页的链接，第二个提取到的是每一个`item`的链接。</br>
 * 先对得到的`item`链接发起请求，得到`response`，再调用回调函数`parse_item`提取感兴趣的信息。</br>
 * 再对得到的下一页的链接发起请求，得到下一页的`response`，没有写回调函数，将再利用`Rule`提取链接，提取到第二页的`item`链接和第三页的链接并循环往复直到不能提取到链接。</br>
  - 此处参考的文章是：https://blog.csdn.net/wqh_jingsong/article/details/56865433
+ -------------------------------------------------------------------
+ v1.0中的是最新版本，可以实现翻页爬取
