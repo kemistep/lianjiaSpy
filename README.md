@@ -49,8 +49,8 @@ class OrangeSpider(CrawlSpider):
         item['house_url'] = response.xpath("//head/link[1]/@href").extract()
         yield item
 ```
-##上面这段代码是对安居客天津住宅新房进信息爬取</br>
-还是先从`start_urls`中的链接得到返回的`response`，利用`Rule`提取链接，第一个提取到的是下一页的链接，第二个提取到的是每一个`item`的链接。</br>
-先对得到的`item`链接发起请求，得到`response`，再调用回调函数`parse_item`提取感兴趣的信息。</br>
-再对得到的下一页的链接发起请求，得到下一页的`response`，没有写回调函数，将再利用`Rule`提取链接，提取到第二页的`item`链接和第三页的链接并循环往复直到不能提取到链接。</br>
-（此处参考的文章是：https://blog.csdn.net/wqh_jingsong/article/details/56865433）
+上面这段代码是对安居客天津住宅新房进信息爬取</br>
+* 还是先从`start_urls`中的链接得到返回的`response`，利用`Rule`提取链接，第一个提取到的是下一页的链接，第二个提取到的是每一个`item`的链接。</br>
+* 先对得到的`item`链接发起请求，得到`response`，再调用回调函数`parse_item`提取感兴趣的信息。</br>
+* 再对得到的下一页的链接发起请求，得到下一页的`response`，没有写回调函数，将再利用`Rule`提取链接，提取到第二页的`item`链接和第三页的链接并循环往复直到不能提取到链接。</br>
+ - 此处参考的文章是：https://blog.csdn.net/wqh_jingsong/article/details/56865433
