@@ -1,6 +1,6 @@
-这几个项目主要验证了爬虫中 Rule的运行机制
+这个爬虫主要验证了scrapy中 Rule的运行机制
 =============================================================
- - 参考了知乎-李宏杰的爬虫项目：https://zhuanlan.zhihu.com/p/25278552</br>
+ - 爬虫参考了知乎-李宏杰的爬虫项目：https://zhuanlan.zhihu.com/p/25278552</br>
 --------------------------------------------------------------------
 ```
 class LianjiaSpider(CrawlSpider):
@@ -36,7 +36,9 @@ class OrangeSpider(CrawlSpider):
             allow=('https://tj.fang.anjuke.com/loupan/\d+.html'),
             restrict_xpaths=("//div[@class='list-contents']/div[1]/div[3]"),
             allow_domains='anjuke.com'), callback='parse_item', follow=False),
-    )
+    ）
+----------------------------------------------------------------
+v1.0中的是最新版本，可以实现翻页爬取
 
     def parse_item(self, response):
         item = AnjukeSpiderItem()
