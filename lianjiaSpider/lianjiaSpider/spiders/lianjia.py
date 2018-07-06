@@ -15,15 +15,10 @@ class LianjiaSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(
-            # allow='/\w+/\w+/',
             restrict_xpaths='//div[@class="bd"]/dl[1]/dd/div/a[1]'),
             callback='next_page'),
-        # Rule(LinkExtractor(restrict_xpaths='//div[@class="bd"]/dl[1]/dd/div/a[1]'), callback='next_page'),
-        # Rule(LinkExtractor(restrict_xpaths='//ul[@id="house-lst"]/li/div[2]/h2/a'), callback='parse_item',
-        #      follow=False),
     )
 
-    # allow = ('https://bj.lianjia.com/zufang/\d+.html'),
     def next_page(self, response):
         page_url = response.xpath('//@page-url').extract_first()
         page_data = response.xpath("//@page-data").extract_first()
@@ -43,10 +38,8 @@ class LianjiaSpider(CrawlSpider):
         '''
 
     def parse_item(self, response):
-        # for list in response.xpath("//ul[@id='house-lst']/li"):
         l = ItemLoader(item=LianjiaspiderItem(), response=response, )
         l.default_output_processor = Join()
         l.add_xpath('url', '//ul[@id="house-lst"]/li/div[2]/div[2]/div[1]/span/text()')
-        # l.add_xpath('url', '//div[@class="content zf-content"]/div[1]/span[1]/text()')
         item = l.load_item()
         yield item
