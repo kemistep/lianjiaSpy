@@ -37,10 +37,10 @@ class LianjiaSpider(CrawlSpider):
                 yield Request(url=response.urljoin(rel_url), callback=self.parse_item)
 
         '''
-        page_data : /zufang/pg{page}l1/
+        page_data : /zufang/pg{page}/
         total_page : 86
-        rel_url : /zufang/pg1l1/
-        url : 'https://bj.lianjia.com/zufang/pg1l1/'
+        rel_url : /zufang/pg1/
+        url : 'https://bj.lianjia.com/zufang/pg1/'
         '''
 
     def parse_item(self, response):
