@@ -34,7 +34,7 @@ class LianjiaSpider(CrawlSpider):
         page_data : /zufang/pg{page}l1/
         total_page : 86
         rel_url : /zufang/pg1l1/
-        url : 'https://bj.lianjia.com/zufang/pg1l1/'
+        url : 'https://bj.lianjia.com/zufang/pg1/'
         '''
 
     def parse_item(self, response):
