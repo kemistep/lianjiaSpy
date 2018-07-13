@@ -56,7 +56,7 @@ class OrangeSpider(CrawlSpider):
 * 再对得到的下一页的链接发起请求，得到下一页的`response`，没有写回调函数，将再利用`Rule`提取链接，提取到第二页的`item`链接和第三页的链接并循环往复直到不能提取到链接。</br>
  - 此处参考的文章是：https://blog.csdn.net/wqh_jingsong/article/details/56865433
  -------------------------------------------------------------------
- v1.0中可以实现翻页爬取</br></br>
+ v1.0中可以实现翻页爬取</br>
  v1.1中增加数据写入MongoDB和User-Agent池。其中`lianjia_bj_zufang.csv`是爬取到的数据。</br>
- v1.2中修改了item的抽取和写入方式，与上一版本中的数据相比更利于后期分析。`lianjia_new`是爬取到的数据。</br>
+ v1.2中修改了item的抽取和写入方式，与上一版本中的数据相比更利于后期分析。`lianjia_new`是爬取到的数据。
    如果把csv文件导入excel中，会出现某些“house_zone”没有提取到，返回网页查看是因为x房间而不是x室，通过修改正则表达式解决问题。</br>
