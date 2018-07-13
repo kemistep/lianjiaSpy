@@ -11,5 +11,11 @@ import scrapy
 class LianjiaspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    url =scrapy.Field()
-    pass
+    house_url = scrapy.Field()
+    house_price = scrapy.Field()
+    title = scrapy.Field()
+    house_location = scrapy.Field()
+    house_zone = scrapy.Field()
+    community= scrapy.Field()
+    house_area = scrapy.Field()
+
