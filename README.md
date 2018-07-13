@@ -59,4 +59,4 @@ class OrangeSpider(CrawlSpider):
  * v1.0中可以实现翻页爬取</br>
  * v1.1中增加数据写入MongoDB和User-Agent池。其中`lianjia_bj_zufang.csv`是爬取到的数据。</br>
  * v1.2中修改了item的抽取和写入方式，与上一版本中的数据相比更利于后期分析。`lianjia_new`是爬取到的数据。
-   如果把csv文件导入excel中，会出现某些“house_zone”没有提取到，返回网页查看是因为x房间而不是x室，通过修改正则表达式解决问题。</br>
+   如果把csv文件导入excel中，会出现某些“house_zone”没有提取到的问题，返回网页查看是因为房型信息是x房间而不是x室，通过修改正则表达式解决问题。</br>
