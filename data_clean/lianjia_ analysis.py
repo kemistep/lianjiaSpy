@@ -5,14 +5,17 @@ from matplotlib import pyplot as plt
 
 
 def jsonToList(doc_path, title):
-    file = open(doc_path, 'r', encoding='utf-8')
-    data_list = []
-    for line in file.readlines():
-        dic = json.loads(line)
-        use_re_clean = useReClean(dic[title])
-        data_list.append(use_re_clean)
-    return data_list
-    file.close()
+    try:
+        file = open(doc_path, 'r', encoding='utf-8')
+        data_list = []
+        for line in file.readlines():
+            dic = json.loads(line)
+            use_re_clean = useReClean(dic[title])
+            data_list.append(use_re_clean)
+        return data_list
+        file.close()
+    except:
+        print('错误发生在jsonToList()')
 
 
 def useReClean(string):
