@@ -55,7 +55,7 @@ DOWNLOADER_MIDDLEWARES = {
     'lianjiaSpider.middlewares.LianjiaspiderDownloaderMiddleware': 543,
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': 499,
     'lianjiaSpider.middlewares.RandomUserAgent': 500,
-    # 'lianjiaSpider.middlewares.PorxyMiddleWare': 400,
+    'lianjiaSpider.middlewares.PorxyMiddleWare': None,
     'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 399,
     'lianjiaSpider.middlewares.PorxyMiddleWareOther': 401
 }
@@ -68,9 +68,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'lianjiaSpider.pipelines.LianjiaspiderPipeline': 300,
-# }
+ITEM_PIPELINES = {
+   'lianjiaSpider.pipelines.LianjiaspiderPipeline': 300,
+}
 MONGODB_HOST = '127.0.0.1'
 MONGODB_PORT = 27017
 MONGODB_DBNAME = 'lianjia'
