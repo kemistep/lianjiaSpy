@@ -4,8 +4,13 @@
 #
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-
+import random
+import time
+import pymongo
 from scrapy import signals
+from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from scrapy.contrib.downloadermiddleware.httpproxy import HttpProxyMiddleware
+from lianjiaSpider.settings import UAPOOL, IPLIST
 
 
 class LianjiaspiderSpiderMiddleware(object):
@@ -101,3 +106,72 @@ class LianjiaspiderDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class PorxyMiddleWare(HttpProxyMiddleware):
+    def __init__(self, ip=''):
+        self.ip = ip
+
+    def process_request(self, request, spider):
+        '''对request对象加上proxy'''
+        proxy = self.get_random_proxy()
+        print("this is request ip:" + proxy)
+        request.meta['proxy'] = proxy
+
+    def process_response(self, request, response, spider):
+        '''对返回的response处理'''
+        # 如果返回的response状态不是200，重新生成当前request对象
+        if response.status != 200:
+            proxy = self.get_random_proxy()
+            print("this is response ip:" + proxy)
+            request.meta['proxy'] = proxy
+            return request
+        return response
+
+    def get_random_proxy(self):
+        '''随机从文件中读取proxy'''
+        # while 1:
+        #     with open('G:/scrapy_project/6-23/lianjiaSpider\lianjiaSpider\ippool.txt', 'r') as f:
+        #         proxies = f.readlines()
+        #     if proxies:
+        #         break
+        #     else:
+        #         time.sleep(1)
+        # proxy = random.choice(proxies).strip()
+        # http = 'http://%s' % proxy
+        proxy = random.choice(self.open_mongodb()).strip()
+        http = 'http://%s' % proxy
+        return http
+
+    def open_mongodb(self):
+        '''从mongodb中读取proxy'''
+        client = pymongo.MongoClient()
+        db = client.proxy
+        collection = db.proxys
+
+        ip_list = []
+        for book in collection.find({}, {"types": 0, 'protocol': 0, }):
+            ip_list.append(book['ip'] + ':' + str(book['port']))
+
+        return ip_list
+
+
+class RandomUserAgent(UserAgentMiddleware):
+    def __init__(self, user_agent):
+        self.user_agent = user_agent
+
+    def process_request(self, request, spider):
+        random_ua = random.choice(UAPOOL)
+        print("当前使用的user-agent是：" + random_ua)
+        request.headers.setdefault('User-Agent', random_ua)
+
+
+class PorxyMiddleWareOther(HttpProxyMiddleware):
+    def __init__(self, ip=''):
+        self.ip = ip
+
+    def process_request(self, request, spider):
+        '''对request对象加上proxy'''
+        proxy = random.choice(IPLIST)
+        print("this is request ip:" + proxy)
+        request.meta['proxy'] = 'http://%s' % proxy
